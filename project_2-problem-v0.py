@@ -17,28 +17,28 @@ INDUSTRIAL_CUTOFF_2 = 10000000
 INDUSTRIAL_PER_GALLON = 0.00025 
 
 customer_code = str(input('Enter customer code (R, C, or I):'))
-start_reading = int(input('Enter beginning reading (between 0 and 999999999):'))
-end_reading = int(input('Enter ending reading (between 0 and 999999999):'))
 used_gallons = 0 
 to_bill = 0
 
-#turning into gallons
-start_reading_gallons = start_reading/10
-end_reading_gallons = end_reading/10
-
-print(f'Customer code: {customer_code}')
-
 #CUSTOMER CODE R
 if customer_code == 'R':
+    start_reading = int(input('Enter beginning reading (between 0 and 999999999):'))
+    end_reading = int(input('Enter ending reading (between 0 and 999999999):'))
+
+    #turning into gallons
+    start_reading_gallons = start_reading/10
+    end_reading_gallons = end_reading/10
+    
     if (0<= start_reading <= 999999999) and ((0<= end_reading <= 999999999)) and end_reading > start_reading:
         
         used_gallons =(end_reading_gallons) - (start_reading_gallons)
 
         to_bill =  RESIDENTIAL_BASIC + (RESIDENTIAL_PER_GALLON * used_gallons)
-
+        
+        print(f'Customer code: {customer_code}')
         print('Beginning reading value in gallons and tenths of gallon', start_reading_gallons)
         print('Ending reading value in gallons and tenths of gallon', end_reading_gallons)
-        print('Gallons of water used:', used_gallons)
+        print(f'Gallons of water used: {used_gallons:0.1f}')
         print(f'Amount billed ${to_bill:0.2f}')
         
     else:
@@ -47,6 +47,13 @@ if customer_code == 'R':
 
 #CUSTOMER CODE C
 elif customer_code == 'C':
+    start_reading = int(input('Enter beginning reading (between 0 and 999999999):'))
+    end_reading = int(input('Enter ending reading (between 0 and 999999999):'))
+
+    #turning into gallons
+    start_reading_gallons = start_reading/10
+    end_reading_gallons = end_reading/10
+    
     if (0<= start_reading <= 999999999) and ((0<= end_reading <= 999999999)) and end_reading > start_reading:
 
         used_gallons =(end_reading_gallons) - (start_reading_gallons)
@@ -54,16 +61,12 @@ elif customer_code == 'C':
 
         if used_gallons > COMMERCIAL_CUTOFF:
 
-            to_bill = 1000 + (used_gallons-4000000)*COMMERCIAL_PER_GALLON
+            to_bill = 1000 + (used_gallons-COMMERCIAL_CUTOFF)*COMMERCIAL_PER_GALLON
 
         elif used_gallons <= COMMERCIAL_CUTOFF:
 
             to_bill = 1000
 
-        print('Beginning reading value in gallons and tenths of gallon', start_reading_gallons)
-        print('Ending reading value in gallons and tenths of gallon', end_reading_gallons)
-        print('Gallons of water used:', used_gallons)
-        print(f'Amount billed ${to_bill:0.2f}')
         
     else:
          print(' Invalid input (beginning or ending reading value is out of the range)' )
@@ -71,6 +74,13 @@ elif customer_code == 'C':
 
 #CUSTOMER CODE I
 elif customer_code == 'I':
+    start_reading = int(input('Enter beginning reading (between 0 and 999999999):'))
+    end_reading = int(input('Enter ending reading (between 0 and 999999999):'))
+
+    #turning into gallons
+    start_reading_gallons = start_reading/10
+    end_reading_gallons = end_reading/10
+    
     if (0<= start_reading <= 999999999) and ((0<= end_reading <= 999999999)) and end_reading > start_reading:
 
         used_gallons =(end_reading_gallons) - (start_reading_gallons)
@@ -78,19 +88,19 @@ elif customer_code == 'I':
 
         if used_gallons < 4000000:
 
-            to_bill = 1000
+            to_bill = INDUSTRIAL_BASIC_1 #1000
 
-        elif 4000000 < used_gallons < 10000000:
+        elif  INDUSTRIAL_CUTOFF_1 < used_gallons < INDUSTRIAL_CUTOFF_2: #4mil < user_gallons < 10mil
 
-            to_bill = 2000
+            to_bill = INDUSTRIAL_BASIC_2 #2000
 
         else:
-            to_bill = 2000 + (used_gallons - 10000000) * 0.00025
+            to_bill = INDUSTRIAL_BASIC_2 + (used_gallons - INDUSTRIAL_CUTOFF_2) * INDUSTRIAL_PER_GALLON
             
-
+        print(f'Customer code: {customer_code}')
         print('Beginning reading value in gallons and tenths of gallon', start_reading_gallons)
         print('Ending reading value in gallons and tenths of gallon', end_reading_gallons)
-        print('Gallons of water used:', used_gallons)
+        print(f'Gallons of water used: {used_gallons:0.1f}')
         print(f'Amount billed ${to_bill:0.2f}')
     
     else:
@@ -98,3 +108,4 @@ elif customer_code == 'I':
 
 else:
     print('Invalid input (customer code)')
+

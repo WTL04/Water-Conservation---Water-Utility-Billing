@@ -45,7 +45,7 @@ if customer_code == 'R':
          print(' Invalid input (beginning or ending reading value is out of the range)' )
 
 
-CUSTOMER CODE C
+#CUSTOMER CODE C
 elif customer_code == 'C':
     if (0<= start_reading <= 999999999) and ((0<= end_reading <= 999999999)) and end_reading > start_reading:
 
@@ -73,23 +73,25 @@ elif customer_code == 'C':
 elif customer_code == 'I':
     if (0<= start_reading <= 999999999) and ((0<= end_reading <= 999999999)) and end_reading > start_reading:
 
-       used_gallons = end_reading_gallons - start_reading_gallons
+        used_gallons =(end_reading_gallons) - (start_reading_gallons)
 
-       if used_gallons < 4000000:
-           
-           to_bill = 1000
+
+        if used_gallons < 4000000:
+
+            to_bill = 1000
 
         elif 4000000 < used_gallons < 10000000:
 
             to_bill = 2000
-            
+
         else:
             to_bill = 2000 + (used_gallons - 10000000) * 0.00025
+            
 
-    print('Beginning reading value in gallons and tenths of gallon', start_reading_gallons)
-    print('Ending reading value in gallons and tenths of gallon', end_reading_gallons)
-    print('Gallons of water used:', used_gallons)
-    print(f'Amount billed ${to_bill:0.2f}')
+        print('Beginning reading value in gallons and tenths of gallon', start_reading_gallons)
+        print('Ending reading value in gallons and tenths of gallon', end_reading_gallons)
+        print('Gallons of water used:', used_gallons)
+        print(f'Amount billed ${to_bill:0.2f}')
     
     else:
         print(' Invalid input (beginning or ending reading value is out of the range)' )
